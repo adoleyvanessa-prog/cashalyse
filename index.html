@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cashalyse</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div>
+      <h1>Cashalyse</h1>
+      <p class="subtext">Enter your figures and get an instant health snapshot.</p>
+    </div>
+
+    <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">
+      🌙 Dark
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Inputs</h2>
+
+      <form id="dataForm" class="form" novalidate>
+        <div class="field">
+          <label for="cash">Cash in bank (£)</label>
+          <input id="cash" name="cash" type="number" inputmode="decimal" min="0" placeholder="e.g. 12000" required />
+        </div>
+
+        <div class="field">
+          <label for="income">Monthly income (£)</label>
+          <input id="income" name="income" type="number" inputmode="decimal" min="0" placeholder="e.g. 4000" required />
+        </div>
+
+        <div class="field">
+          <label for="expenses">Monthly expenses (£)</label>
+          <input id="expenses" name="expenses" type="number" inputmode="decimal" min="0" placeholder="e.g. 6000" required />
+        </div>
+
+        <div class="field">
+          <label for="overdue">Overdue invoices (£)</label>
+          <input id="overdue" name="overdue" type="number" inputmode="decimal" min="0" placeholder="e.g. 1500" required />
+        </div>
+
+        <div class="actions">
+          <button id="updateBtn" class="btn btn-primary" type="submit">
+            Update Dashboard
+          </button>
+
+          <p id="errorMsg" class="error hidden" role="alert"></p>
+        </div>
+
+        <div id="loading" class="loading hidden" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <span>Updating dashboard...</span>
+        </div>
+      </form>
+    </section>
+
+    <section class="grid">
+      <article class="card" id="cashCard">
+        <div class="card-top">
+          <h3>Cash Health</h3>
+          <span id="cashBadge" class="badge">—</span>
+        </div>
+        <p class="metric" id="runwayValue">Runway: —</p>
+        <p class="subtext" id="cashNote">Enter your figures and update.</p>
+      </article>
+
+      <article class="card" id="burnCard">
+        <div class="card-top">
+          <h3>Burn Rate</h3>
+          <span id="burnBadge" class="badge">—</span>
+        </div>
+        <p class="metric" id="burnValue">Monthly: —</p>
+        <p class="subtext" id="burnNote">This shows whether you have surplus or deficit.</p>
+      </article>
+
+      <article class="card" id="invoiceCard">
+        <div class="card-top">
+          <h3>Invoice Risk</h3>
+          <span id="invoiceBadge" class="badge">—</span>
+        </div>
+        <p class="metric" id="invoiceValue">Overdue: —</p>
+        <p class="subtext" id="invoiceNote">Unpaid invoices can affect cash flow.</p>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Insights</h2>
+      <ul id="insightsList" class="insights">
+        <li class="subtext">Insights will appear here after you update the dashboard.</li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <p class="subtext">
+        Disclaimer: These results are estimates for planning purposes only.
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
