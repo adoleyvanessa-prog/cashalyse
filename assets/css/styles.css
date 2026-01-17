@@ -21,7 +21,7 @@ body.dark {
   --panel: rgb(27, 27, 27);
   --text: #eaeaea;
   --muted: #b5b5b5;
-  --border: rgb(25, 71, 57);
+  --border: #848484;
   --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
   --primary: #9ae6b4; /* mint green for dark mode */
   --title: #9ae6b4; /* soft mint green for dark mode */
