@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cashalyse</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/sterling-sign-solid-full.svg">
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://kit.fontawesome.com/720fe4f688.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
   <header class="header">
     <div>
-      <h1>Cashalyse</h1>
+      <h1><i class="fa-solid fa-sterling-sign"></i>Cashalyse</h1>
+      <h2>Financial Health Dashboard</h2>
       <p class="subtext">Enter your figures and get an instant health snapshot.</p>
     </div>
 
@@ -20,6 +23,9 @@
   </header>
 
   <main class="container">
+
+  <div class="layout">
+    <!-- LEFT: Inputs -->
     <section class="panel">
       <h2>Inputs</h2>
 
@@ -48,18 +54,13 @@
           <button id="updateBtn" class="btn btn-primary" type="submit">
             Update Dashboard
           </button>
-
           <p id="errorMsg" class="error hidden" role="alert"></p>
-        </div>
-
-        <div id="loading" class="loading hidden" aria-live="polite">
-          <div class="spinner" aria-hidden="true"></div>
-          <span>Updating dashboard...</span>
         </div>
       </form>
     </section>
 
-    <section class="grid">
+    <!-- RIGHT: Cards stacked vertically -->
+    <section class="cards-col">
       <article class="card" id="cashCard">
         <div class="card-top">
           <h3>Cash Health</h3>
@@ -87,20 +88,23 @@
         <p class="subtext" id="invoiceNote">Unpaid invoices can affect cash flow.</p>
       </article>
     </section>
+  </div>
 
-    <section class="panel">
-      <h2>Insights</h2>
-      <ul id="insightsList" class="insights">
-        <li class="subtext">Insights will appear here after you update the dashboard.</li>
-      </ul>
-    </section>
+  <!-- Everything below stays full width -->
+  <section class="panel">
+    <h2>Insights</h2>
+    <ul id="insightsList" class="insights">
+      <li class="subtext">Insights will appear here after you update the dashboard.</li>
+    </ul>
+  </section>
 
-    <footer class="footer">
-      <p class="subtext">
-        Disclaimer: These results are estimates for planning purposes only.
-      </p>
-    </footer>
-  </main>
+  <footer class="footer">
+    <p class="subtext">
+      Disclaimer: These results are estimates for planning purposes only.
+    </p>
+  </footer>
+
+</main>
 
   <script src="script.js"></script>
 </body>

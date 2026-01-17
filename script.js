@@ -42,7 +42,6 @@ initTheme();
 // ---------- Elements ----------
 const form = document.getElementById("dataForm");
 const updateBtn = document.getElementById("updateBtn");
-const loading = document.getElementById("loading");
 const errorMsg = document.getElementById("errorMsg");
 
 const cashCard = document.getElementById("cashCard");
@@ -176,17 +175,27 @@ function updateDashboard(data) {
   renderInsights(insights);
 }
 
-// ---------- Form Submit + Loading ----------
+// ---------- Form Submit ----------
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Read values once
   const data = {
     cash: toNumber(document.getElementById("cash").value),
     income: toNumber(document.getElementById("income").value),
     expenses: toNumber(document.getElementById("expenses").value),
     overdue: toNumber(document.getElementById("overdue").value),
   };
+
+  const err = validateInputs(data);
+  if (err) {
+    errorMsg.textContent = err;
+    errorMsg.classList.remove("hidden");
+    return;
+  }
+
+  errorMsg.classList.add("hidden");
+  updateDashboard(data);
+});
 
   // Validate
   const err = validateInputs(data);
@@ -210,4 +219,3 @@ form.addEventListener("submit", (e) => {
     updateBtn.disabled = false;
     updateBtn.textContent = "Update Dashboard";
   }, 900);
-});
