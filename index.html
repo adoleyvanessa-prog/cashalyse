@@ -1,111 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cashalyse</title>
-  <link rel="icon" type="image/svg+xml" href="assets/images/sterling-sign-solid-full.svg">
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <script src="https://kit.fontawesome.com/720fe4f688.js" crossorigin="anonymous"></script>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cashalyse</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/images/sterling-sign-solid-full.svg"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Google Font: Jost -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/720fe4f688.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<body>
-  <header class="header">
-    <div>
-      <h1><i class="fa-solid fa-sterling-sign"></i>Cashalyse</h1>
-      <h2>Financial Health Dashboard</h2>
-      <p class="subtext">Enter your figures and get an instant health snapshot.</p>
-    </div>
+  <body>
+    <header class="header">
+      <div>
+        <h1><i class="fa-solid fa-sterling-sign"></i>Cashalyse</h1>
+        <h2>
+          Financial Health Dashboard<i class="fa-solid fa-chart-line"></i>
+        </h2>
+        <p class="subtext">
+          Enter your figures and get an instant health snapshot.
+        </p>
+      </div>
 
-    <button id="themeToggle" class="btn btn-ghost" type="button" aria-label="Toggle theme">
-      🌙 Dark
-    </button>
-  </header>
+      <button
+        id="themeToggle"
+        class="btn btn-ghost"
+        type="button"
+        aria-label="Toggle theme"
+      >
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </header>
 
-  <main class="container">
+    <main class="container">
+      <div class="layout">
+        <!-- LEFT: Inputs -->
+        <section class="panel">
+          <h2>Inputs</h2>
 
-  <div class="layout">
-    <!-- LEFT: Inputs -->
-    <section class="panel">
-      <h2>Inputs</h2>
+          <form id="dataForm" class="form" novalidate>
+            <div class="field">
+              <label for="cash">Cash in bank (£)</label>
+              <input
+                id="cash"
+                name="cash"
+                type="text"
+                inputmode="decimal"
+                pattern="[0-9]*"
+                placeholder="e.g. 12000"
+                required
+              />
+            </div>
 
-      <form id="dataForm" class="form" novalidate>
-        <div class="field">
-          <label for="cash">Cash in bank (£)</label>
-          <input id="cash" name="cash" type="number" inputmode="decimal" min="0" placeholder="e.g. 12000" required />
-        </div>
+            <div class="field">
+              <label for="income">Monthly income (£)</label>
+              <input
+                id="income"
+                name="income"
+                type="text"
+                inputmode="decimal"
+                pattern="[0-9]*"
+                placeholder="e.g. 4000"
+                required
+              />
+            </div>
 
-        <div class="field">
-          <label for="income">Monthly income (£)</label>
-          <input id="income" name="income" type="number" inputmode="decimal" min="0" placeholder="e.g. 4000" required />
-        </div>
+            <div class="field">
+              <label for="expenses">Monthly expenses (£)</label>
+              <input
+                id="expenses"
+                name="expenses"
+                type="text"
+                inputmode="decimal"
+                pattern="[0-9]*"
+                placeholder="e.g. 6000"
+                required
+              />
+            </div>
 
-        <div class="field">
-          <label for="expenses">Monthly expenses (£)</label>
-          <input id="expenses" name="expenses" type="number" inputmode="decimal" min="0" placeholder="e.g. 6000" required />
-        </div>
+            <div class="field">
+              <label for="overdue">Overdue invoices (£)</label>
+              <input
+                id="overdue"
+                name="overdue"
+                type="text"
+                inputmode="decimal"
+                pattern="[0-9]*"
+                placeholder="e.g. 1500"
+                required
+              />
+            </div>
 
-        <div class="field">
-          <label for="overdue">Overdue invoices (£)</label>
-          <input id="overdue" name="overdue" type="number" inputmode="decimal" min="0" placeholder="e.g. 1500" required />
-        </div>
+            <div class="actions">
+              <button id="updateBtn" class="btn btn-primary" type="submit">
+                Update Dashboard
+              </button>
+              <p id="errorMsg" class="error hidden" role="alert"></p>
+            </div>
+          </form>
+        </section>
 
-        <div class="actions">
-          <button id="updateBtn" class="btn btn-primary" type="submit">
-            Update Dashboard
-          </button>
-          <p id="errorMsg" class="error hidden" role="alert"></p>
-        </div>
-      </form>
-    </section>
+        <!-- RIGHT: Cards stacked vertically -->
+        <section class="cards-col">
+          <article class="card" id="cashCard">
+            <div class="card-top">
+              <h3>Cash Health</h3>
+              <span id="cashBadge" class="badge">-</span>
+            </div>
+            <p class="metric" id="runwayValue">Runway: -</p>
+            <p class="subtext" id="cashNote">Enter your figures and update.</p>
+          </article>
 
-    <!-- RIGHT: Cards stacked vertically -->
-    <section class="cards-col">
-      <article class="card" id="cashCard">
-        <div class="card-top">
-          <h3>Cash Health</h3>
-          <span id="cashBadge" class="badge">—</span>
-        </div>
-        <p class="metric" id="runwayValue">Runway: —</p>
-        <p class="subtext" id="cashNote">Enter your figures and update.</p>
-      </article>
+          <article class="card" id="burnCard">
+            <div class="card-top">
+              <h3>Burn Rate</h3>
+              <span id="burnBadge" class="badge">-</span>
+            </div>
+            <p class="metric" id="burnValue">Monthly: -</p>
+            <p class="subtext" id="burnNote">
+              This shows whether you have surplus or deficit.
+            </p>
+          </article>
 
-      <article class="card" id="burnCard">
-        <div class="card-top">
-          <h3>Burn Rate</h3>
-          <span id="burnBadge" class="badge">—</span>
-        </div>
-        <p class="metric" id="burnValue">Monthly: —</p>
-        <p class="subtext" id="burnNote">This shows whether you have surplus or deficit.</p>
-      </article>
+          <article class="card" id="invoiceCard">
+            <div class="card-top">
+              <h3>Invoice Risk</h3>
+              <span id="invoiceBadge" class="badge">-</span>
+            </div>
+            <p class="metric" id="invoiceValue">Overdue: -</p>
+            <p class="subtext" id="invoiceNote">
+              Unpaid invoices can affect cash flow.
+            </p>
+          </article>
+        </section>
+      </div>
 
-      <article class="card" id="invoiceCard">
-        <div class="card-top">
-          <h3>Invoice Risk</h3>
-          <span id="invoiceBadge" class="badge">—</span>
-        </div>
-        <p class="metric" id="invoiceValue">Overdue: —</p>
-        <p class="subtext" id="invoiceNote">Unpaid invoices can affect cash flow.</p>
-      </article>
-    </section>
-  </div>
+      <!-- Everything below stays full width -->
+      <section class="panel">
+        <h2>Insights</h2>
+        <ul id="insightsList" class="insights">
+          <li class="subtext">
+            Insights will appear here after you update the dashboard.
+          </li>
+        </ul>
+      </section>
+    </main>
 
-  <!-- Everything below stays full width -->
-  <section class="panel">
-    <h2>Insights</h2>
-    <ul id="insightsList" class="insights">
-      <li class="subtext">Insights will appear here after you update the dashboard.</li>
-    </ul>
-  </section>
-
-  <footer class="footer">
-    <p class="subtext">
-      Disclaimer: These results are estimates for planning purposes only.
-    </p>
-  </footer>
-
-</main>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

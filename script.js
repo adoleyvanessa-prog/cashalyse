@@ -16,12 +16,40 @@ function clearBadgeClasses(el) {
   el.classList.remove("badge-ok", "badge-warn", "badge-bad");
 }
 
+// Returns an object with HTML, className, and aria description for the badge
+function getFaceBadge(level) {
+  if (level === "ok") {
+    return {
+      html: `<i class="fa-regular fa-face-smile" aria-hidden="true"></i><span class="sr-only">Good</span>`,
+      className: "badge-face-ok",
+      aria: "Good",
+    };
+  }
+
+  if (level === "warn") {
+    return {
+      html: `<i class="fa-regular fa-face-meh" aria-hidden="true"></i><span class="sr-only">Neutral</span>`,
+      className: "badge-face-warn",
+      aria: "Neutral",
+    };
+  }
+
+  return {
+    html: `<i class="fa-regular fa-face-frown" aria-hidden="true"></i><span class="sr-only">Poor</span>`,
+    className: "badge-face-bad",
+    aria: "Poor",
+  };
+}
+
 // ---------- Theme Toggle ----------
 const themeToggle = document.getElementById("themeToggle");
 
 function applyTheme(theme) {
   document.body.classList.toggle("dark", theme === "dark");
-  themeToggle.textContent = theme === "dark" ? "☀️ Light" : "🌙 Dark";
+  themeToggle.innerHTML =
+    theme === "dark"
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
 }
 
 function initTheme() {
@@ -88,7 +116,7 @@ function getInvoiceRisk(overdue) {
   return { label: "High", level: "bad" };
 }
 
-function setCardStatus(cardEl, badgeEl, statusLevel, badgeText) {
+function setCardStatus(cardEl, badgeEl, statusLevel) {
   clearStatusClasses(cardEl);
   clearBadgeClasses(badgeEl);
 
@@ -103,7 +131,16 @@ function setCardStatus(cardEl, badgeEl, statusLevel, badgeText) {
     badgeEl.classList.add("badge-bad");
   }
 
-  badgeEl.textContent = badgeText;
+  // icon badge
+  const face = getFaceBadge(statusLevel);
+  badgeEl.classList.remove(
+    "badge-face-ok",
+    "badge-face-warn",
+    "badge-face-bad"
+  );
+  badgeEl.classList.add(face.className);
+  badgeEl.innerHTML = face.html;
+  badgeEl.setAttribute("aria-label", face.aria);
 }
 
 function renderInsights(items) {
@@ -135,13 +172,16 @@ function updateDashboard(data) {
   const invoiceRisk = getInvoiceRisk(data.overdue);
 
   // Cash Card
-  const runwayText = runway === Infinity ? "No burn (income covers expenses)" : `${runway.toFixed(1)} months`;
+  const runwayText =
+    runway === Infinity
+      ? "No burn (income covers expenses)"
+      : `${runway.toFixed(1)} months`;
   runwayValue.textContent = `Runway: ${runwayText}`;
   cashNote.textContent =
     runway === Infinity
       ? "You’re not burning cash right now."
       : "This estimates how long cash could last at the current burn rate.";
-  setCardStatus(cashCard, cashBadge, cashStatus.level, cashStatus.label);
+  setCardStatus(cashCard, cashBadge, cashStatus.level);
 
   // Burn Card
   burnValue.textContent = `Monthly: ${formatGBP(burnStatus.amount)}`;
@@ -149,7 +189,7 @@ function updateDashboard(data) {
     burnStatus.label === "Surplus"
       ? "Income covers expenses."
       : "Expenses exceed income.";
-  setCardStatus(burnCard, burnBadge, burnStatus.level, burnStatus.label);
+  setCardStatus(burnCard, burnBadge, burnStatus.level);
 
   // Invoice Card
   invoiceValue.textContent = `Overdue: ${formatGBP(data.overdue)}`;
@@ -157,20 +197,37 @@ function updateDashboard(data) {
     invoiceRisk.label === "Low"
       ? "No overdue invoices recorded."
       : "Overdue invoices may affect cash flow.";
-  setCardStatus(invoiceCard, invoiceBadge, invoiceRisk.level, `${invoiceRisk.label} Risk`);
+  setCardStatus(invoiceCard, invoiceBadge, invoiceRisk.level);
 
   // Insights
   const insights = [];
 
-  if (runway !== Infinity && runway < 3) insights.push("Cash runway is under 3 months — consider reducing costs or improving revenue quickly.");
-  if (runway !== Infinity && runway >= 3 && runway < 6) insights.push("Cash runway is between 3–6 months — monitor closely and plan ahead.");
-  if (runway === Infinity) insights.push("You currently have no monthly cash burn (income covers expenses).");
+  if (runway !== Infinity && runway < 3)
+    insights.push(
+      "Cash runway is under 3 months, consider reducing costs or improving revenue quickly."
+    );
+  if (runway !== Infinity && runway >= 3 && runway < 6)
+    insights.push(
+      "Cash runway is between 3–6 months, monitor closely and plan ahead."
+    );
+  if (runway === Infinity)
+    insights.push(
+      "You currently have no monthly cash burn (income covers expenses)."
+    );
 
-  if (burnStatus.label === "Deficit") insights.push("Expenses are higher than income — review recurring costs and pricing.");
-  if (invoiceRisk.label === "High") insights.push("High invoice risk — prioritise chasing overdue payments.");
-  if (invoiceRisk.label === "Medium") insights.push("Some invoices are overdue — consider a follow-up reminder.");
+  if (burnStatus.label === "Deficit")
+    insights.push(
+      "Expenses are higher than income, review recurring costs and pricing."
+    );
+  if (invoiceRisk.label === "High")
+    insights.push("High invoice risk, prioritise chasing overdue payments.");
+  if (invoiceRisk.label === "Medium")
+    insights.push("Some invoices are overdue, consider a follow-up reminder.");
 
-  if (insights.length === 0) insights.push("Everything looks stable right now. Keep tracking monthly performance.");
+  if (insights.length === 0)
+    insights.push(
+      "Everything looks stable right now. Keep tracking monthly performance."
+    );
 
   renderInsights(insights);
 }
@@ -192,30 +249,6 @@ form.addEventListener("submit", (e) => {
     errorMsg.classList.remove("hidden");
     return;
   }
-
   errorMsg.classList.add("hidden");
   updateDashboard(data);
 });
-
-  // Validate
-  const err = validateInputs(data);
-  if (err) {
-    errorMsg.textContent = err;
-    errorMsg.classList.remove("hidden");
-    return;
-  }
-  errorMsg.classList.add("hidden");
-
-  // Loading state
-  loading.classList.remove("hidden");
-  updateBtn.disabled = true;
-  updateBtn.textContent = "Updating...";
-
-  // Simulate processing
-  setTimeout(() => {
-    updateDashboard(data);
-
-    loading.classList.add("hidden");
-    updateBtn.disabled = false;
-    updateBtn.textContent = "Update Dashboard";
-  }, 900);
