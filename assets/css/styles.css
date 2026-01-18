@@ -507,6 +507,21 @@ input:-webkit-autofill:focus {
   margin: 0;
 }
 
+@media (min-width: 1800px) {
+  .header,
+  .container {
+    max-width: 1500px;
+  }
+}
+
+/* Large screens (desktops / ultrawide) */
+@media (min-width: 1400px) {
+  .header,
+  .container {
+    max-width: 1300px;
+  }
+}
+
 /* =====================================================
    RESPONSIVE: TABLET (≤ 900px)
    ===================================================== */
