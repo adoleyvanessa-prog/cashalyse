@@ -1,9 +1,17 @@
 // ---------- HELPERS ----------
 // Utility functions for common operations used throughout the app
 
-// Convert a value to a number, return NaN if invalid
+// Convert a string input to a number, returning NaN for invalid inputs
 function toNumber(value) {
-  const n = Number(value);
+  const cleaned = String(value).trim();
+
+  // Treat empty input as invalid
+  if (cleaned === "") return NaN;
+
+  // Optional: allow "12,000" by removing commas
+  const normalised = cleaned.replace(/,/g, "");
+
+  const n = Number(normalised);
   return Number.isFinite(n) ? n : NaN;
 }
 
