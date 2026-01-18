@@ -133,9 +133,18 @@ h3 {
 
 .field input:focus,
 .field input:focus-visible {
+  background-color: transparent; /* or var(--panel) */
   outline: none; /* removes browser purple outline */
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(25, 71, 57, 0.25); /* soft green glow */
+}
+/* Remove Chrome autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0px 1000px var(--panel) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .actions {
