@@ -169,10 +169,6 @@ input:-webkit-autofill:focus {
 .btn:active {
   transform: scale(0.98);
 }
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
 
 .btn-primary {
   background-color: var(--primary-btn);
@@ -207,13 +203,6 @@ input:-webkit-autofill:focus {
 .btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin: 14px 0;
 }
 
 .card {
@@ -320,9 +309,8 @@ input:-webkit-autofill:focus {
 
 .insights {
   margin: 0;
-  padding-left: 18px;
   color: var(--text);
-  list-style: none; /* remove default bullets */
+  list-style: none;
   padding-left: 0;
 }
 
@@ -338,11 +326,6 @@ input:-webkit-autofill:focus {
   left: 0;
   color: var(--muted); /* subtle */
   font-weight: 600;
-}
-
-.footer {
-  text-align: center;
-  padding-top: 10px;
 }
 
 .layout {
@@ -361,12 +344,6 @@ input:-webkit-autofill:focus {
 
 /* Remove extra margins inside the grid columns */
 .layout .panel {
-  margin: 0;
-}
-
-/* If you keep using the old .grid wrapper, neutralise it inside layout */
-.layout .grid {
-  display: contents;
   margin: 0;
 }
 
