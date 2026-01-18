@@ -1,3 +1,42 @@
+/* =====================================================
+   CASHALYSE — COLOUR SYSTEM OVERVIEW
+
+   Core Surfaces
+   ----------------------------------
+   --bg            Light page background        #f6f7fb
+   --panel         Panel / card surface         #ffffff
+   --border        UI borders & dividers        #e5e7eb
+   --shadow        Elevation / depth            rgba(0,0,0,0.06)
+
+   Text
+   ----------------------------------
+   --text          Primary text                 #111827
+   --muted         Secondary / helper text      #6b7280
+   --title         Brand & heading colour       rgb(25,71,57)
+
+   Brand / Actions
+   ----------------------------------
+   --primary       Brand accent (focus states)  rgb(25,71,57)
+   --primary-btn   Primary action button        rgb(25,71,57)
+
+   Status Indicators
+   ----------------------------------
+   --ok            Positive / healthy           #16a34a
+   --warn          Caution / neutral             #f59e0b
+   --bad           Risk / negative               #dc2626
+
+   Dark Mode Overrides
+   ----------------------------------
+   --bg            #0b1220
+   --panel         rgb(27,27,27)
+   --text          #eaeaea
+   --muted         #b5b5b5
+   --border        #848484
+   --primary       #9ae6b4
+   --primary-btn   #9ae6b4
+   --title         #9ae6b4
+===================================================== */
+
 :root {
   --bg: #f6f7fb;
   --panel: #ffffff;
