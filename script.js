@@ -180,7 +180,8 @@ function setCardStatus(cardEl, badgeEl, statusLevel) {
 // Clears existing list and adds new insight items
 function renderInsights(items) {
   insightsList.innerHTML = ""; // Clear old insights
-  items.slice(0, 4).forEach((text) => { // Show up to 4 insights
+  items.slice(0, 4).forEach((text) => {
+    // Show up to 4 insights
     const li = document.createElement("li");
     li.textContent = text;
     insightsList.appendChild(li);
