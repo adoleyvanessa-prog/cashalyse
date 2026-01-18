@@ -16,7 +16,7 @@
 }
 
 body.dark {
-  background-image: url("../images/bg-image-dark.png");
+  background-image: url("../images/bg-image-dark.webp");
   --bg: #0b1220;
   --panel: rgb(27, 27, 27);
   --text: #eaeaea;
@@ -58,7 +58,7 @@ body {
   font-family: "Jost", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
   background-color: var(--bg);
-  background-image: url("../images/bg-image.png");
+  background-image: url("../images/bg-image.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
