@@ -233,22 +233,35 @@ function updateDashboard(data) {
 }
 
 // ---------- Form Submit ----------
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", (e) => { // on submit
   e.preventDefault();
 
-  const data = {
+  const data = { // gather inputs
     cash: toNumber(document.getElementById("cash").value),
     income: toNumber(document.getElementById("income").value),
     expenses: toNumber(document.getElementById("expenses").value),
     overdue: toNumber(document.getElementById("overdue").value),
   };
 
-  const err = validateInputs(data);
+  const err = validateInputs(data); // validate
   if (err) {
     errorMsg.textContent = err;
     errorMsg.classList.remove("hidden");
     return;
   }
-  errorMsg.classList.add("hidden");
-  updateDashboard(data);
+
+  errorMsg.classList.add("hidden"); // clear errors
+
+  // Button loading state
+  updateBtn.textContent = "Updating…"; 
+  updateBtn.disabled = true;
+
+  // Simulate processing (UX polish)
+  setTimeout(() => {
+    updateDashboard(data);
+
+    // Reset button
+    updateBtn.textContent = "Update Dashboard";
+    updateBtn.disabled = false;
+  }, 600); // simulate delay
 });
