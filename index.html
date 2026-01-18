@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- PAGE METADATA -->
+    <!-- Defines character encoding and viewport settings for responsive design -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cashalyse</title>
-    <!-- Favicons and backups -->
+
+    <!-- FAVICONS AND BROWSER ICONS -->
+    <!-- Multiple favicon formats for different devices and browsers -->
     <link rel="icon" href="assets/images/favicon.ico" />
 
     <link
@@ -21,10 +25,7 @@
       href="assets/images/favicon-16x16.png"
     />
 
-    <link
-      rel="apple-touch-icon"
-      href="assets/images/apple-touch-icon.png"
-    />
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
     <link
       rel="icon"
       type="image/png"
@@ -46,14 +47,19 @@
       href="assets/images/sterling-sign-solid-full.svg"
     />
 
+    <!-- STYLES AND FONTS -->
+    <!-- Main stylesheet for layout and theming -->
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <!-- Google Font: Jost -->
+
+    <!-- Google Font: Jost (system font stack alternative) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Font Awesome: Icon library for UI icons (theme toggle, currency signs, etc) -->
     <script
       src="https://kit.fontawesome.com/720fe4f688.js"
       crossorigin="anonymous"
@@ -61,17 +67,23 @@
   </head>
 
   <body>
+    <!-- HEADER SECTION -->
+    <!-- Top navigation bar with app title and theme toggle button -->
     <header class="header">
       <div>
+        <!-- App title with pound sterling icon -->
         <h1><i class="fa-solid fa-sterling-sign"></i>Cashalyse</h1>
+        <!-- Subtitle describing the dashboard purpose -->
         <h2>
           Financial Health Dashboard<i class="fa-solid fa-chart-line"></i>
         </h2>
+        <!-- Brief description for users -->
         <p class="subtext">
           Enter your figures and get an instant health snapshot.
         </p>
       </div>
 
+      <!-- Theme toggle button (switches between dark and light mode) -->
       <button
         id="themeToggle"
         class="btn btn-ghost"
@@ -82,13 +94,18 @@
       </button>
     </header>
 
+    <!-- MAIN CONTENT AREA -->
+    <!-- Container holding all dashboard content -->
     <main class="container">
       <div class="layout">
-        <!-- LEFT: Inputs -->
+        <!-- LEFT SECTION: INPUT FORM -->
+        <!-- Panel containing all form inputs for financial data -->
         <section class="panel">
           <h2>Inputs</h2>
 
+          <!-- Form for entering financial metrics -->
           <form id="dataForm" class="form" novalidate>
+            <!-- Cash in bank input field -->
             <div class="field">
               <label for="cash">Cash in bank (£)</label>
               <input
@@ -102,6 +119,7 @@
               />
             </div>
 
+            <!-- Monthly income input field -->
             <div class="field">
               <label for="income">Monthly income (£)</label>
               <input
@@ -115,6 +133,7 @@
               />
             </div>
 
+            <!-- Monthly expenses input field -->
             <div class="field">
               <label for="expenses">Monthly expenses (£)</label>
               <input
@@ -128,6 +147,7 @@
               />
             </div>
 
+            <!-- Overdue invoices input field -->
             <div class="field">
               <label for="overdue">Overdue invoices (£)</label>
               <input
@@ -141,43 +161,61 @@
               />
             </div>
 
+            <!-- Form actions: submit button and error message display -->
             <div class="actions">
               <button id="updateBtn" class="btn btn-primary" type="submit">
                 Update Dashboard
               </button>
+              <!-- Error message container (hidden by default, shown if validation fails) -->
               <p id="errorMsg" class="error hidden" role="alert"></p>
             </div>
           </form>
         </section>
 
-        <!-- RIGHT: Cards stacked vertically -->
+        <!-- RIGHT SECTION: METRIC CARDS -->
+        <!-- Vertically stacked cards showing financial health metrics -->
         <section class="cards-col">
+          <!-- CARD 1: Cash Health & Runway -->
+          <!-- Shows how long the company can operate with current cash and burn rate -->
           <article class="card" id="cashCard">
             <div class="card-top">
               <h3>Cash Health<i class="fa-solid fa-briefcase-medical"></i></h3>
+              <!-- Badge shows status level with emoji (smile/meh/frown) -->
               <span id="cashBadge" class="badge">-</span>
             </div>
+            <!-- Main metric: runway in months -->
             <p class="metric" id="runwayValue">Runway: -</p>
+            <!-- Descriptive note explaining the metric -->
             <p class="subtext" id="cashNote">Enter your figures and update.</p>
           </article>
 
+          <!-- CARD 2: Burn Rate -->
+          <!-- Shows whether company has monthly surplus or deficit -->
           <article class="card" id="burnCard">
             <div class="card-top">
               <h3>Burn Rate<i class="fa-solid fa-temperature-high"></i></h3>
+              <!-- Badge shows status level (good if surplus, bad if deficit) -->
               <span id="burnBadge" class="badge">-</span>
             </div>
+            <!-- Main metric: monthly income minus expenses -->
             <p class="metric" id="burnValue">Monthly: -</p>
+            <!-- Descriptive note explaining the metric -->
             <p class="subtext" id="burnNote">
               This shows whether you have surplus or deficit.
             </p>
           </article>
 
+          <!-- CARD 3: Invoice Risk -->
+          <!-- Shows financial risk posed by overdue invoices -->
           <article class="card" id="invoiceCard">
             <div class="card-top">
               <h3>Invoice Risk<i class="fa-solid fa-file-invoice"></i></h3>
+              <!-- Badge shows risk level (low/medium/high) -->
               <span id="invoiceBadge" class="badge">-</span>
             </div>
+            <!-- Main metric: total amount of overdue invoices -->
             <p class="metric" id="invoiceValue">Overdue: -</p>
+            <!-- Descriptive note explaining the metric -->
             <p class="subtext" id="invoiceNote">
               Unpaid invoices can affect cash flow.
             </p>
@@ -185,10 +223,13 @@
         </section>
       </div>
 
-      <!-- Everything below stays full width -->
+      <!-- INSIGHTS SECTION -->
+      <!-- Full-width panel showing actionable recommendations based on financial data -->
       <section class="panel">
         <h2>Insights</h2>
+        <!-- List of insights generated dynamically by JavaScript -->
         <ul id="insightsList" class="insights">
+          <!-- Default placeholder message shown before dashboard is updated -->
           <li class="subtext">
             Insights will appear here after you update the dashboard.
           </li>
@@ -196,6 +237,8 @@
       </section>
     </main>
 
+    <!-- SCRIPTS -->
+    <!-- Load the main application JavaScript file -->
     <script src="script.js"></script>
   </body>
 </html>

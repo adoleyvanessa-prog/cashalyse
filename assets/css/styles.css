@@ -1,5 +1,9 @@
 /* =====================================================
    CASHALYSE — COLOUR SYSTEM OVERVIEW
+   
+   This file defines a complete design system with light
+   and dark modes, responsive typography, and status
+   indicators for financial health visualization.
 
    Core Surfaces
    ----------------------------------
@@ -37,7 +41,11 @@
    --title         #9ae6b4
 ===================================================== */
 
+/* =====================================================
+   LIGHT MODE — COLOR VARIABLES
+   ===================================================== */
 :root {
+  /* Background and surface colors */
   --bg: #f6f7fb;
   --panel: #ffffff;
   --text: #111827;
@@ -45,66 +53,96 @@
   --border: #e5e7eb;
   --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 
-  --primary: rgb(25, 71, 57); /* dark green */
+  /* Primary brand color (dark green) */
+  --primary: rgb(25, 71, 57);
 
-  --ok: #16a34a;
-  --warn: #f59e0b;
-  --bad: #dc2626;
-  --title: rgb(25, 71, 57); /* dark green for light mode */
-  --primary-btn: rgb(25, 71, 57); /* current dark green */
+  /* Status colors for financial metrics */
+  --ok: #16a34a; /* Green: healthy/positive */
+  --warn: #f59e0b; /* Amber: caution/neutral */
+  --bad: #dc2626; /* Red: risk/negative */
+
+  /* Heading and button colors */
+  --title: rgb(25, 71, 57); /* Dark green for titles */
+  --primary-btn: rgb(25, 71, 57); /* Dark green for buttons */
 }
 
+/* =====================================================
+   DARK MODE — COLOR VARIABLE OVERRIDES
+   ===================================================== */
 body.dark {
+  /* Switch to dark background image */
   background-image: url("../images/bg-image-dark.webp");
+
+  /* Override all colors for dark theme */
   --bg: #0b1220;
   --panel: rgb(27, 27, 27);
   --text: #eaeaea;
   --muted: #b5b5b5;
   --border: #848484;
   --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  --primary: #9ae6b4; /* mint green for dark mode */
-  --title: #9ae6b4; /* soft mint green for dark mode */
-  --primary-btn: #9ae6b4; /* mint green */
+
+  /* Mint green accent for dark mode */
+  --primary: #9ae6b4;
+  --title: #9ae6b4;
+  --primary-btn: #9ae6b4;
 }
 
+/* Dark mode: primary button hover state */
 body.dark .btn-primary:hover {
   filter: brightness(0.92);
   box-shadow: 0 10px 15px rgba(154, 230, 180, 0.45);
 }
 
+/* Dark mode: ensure button text contrast */
 body.dark .btn-primary {
-  color: rgb(27, 27, 27); /* ensures contrast in dark mode */
+  color: rgb(27, 27, 27);
 }
+
+/* Dark mode: ghost button styling */
 body.dark .btn-ghost {
   background-color: rgba(154, 230, 180, 0.15);
   border-color: rgb(25, 71, 57);
 }
+
 body.dark .btn-ghost:hover {
   background-color: rgba(154, 230, 180, 0.25);
 }
-/* Dark mode input focus */
+
+/* Dark mode: form input focus state with mint glow */
 body.dark .field input:focus,
 body.dark .field input:focus-visible {
-  box-shadow: 0 0 0 3px rgba(154, 230, 180, 0.35); /* soft mint green glow */
+  box-shadow: 0 0 0 3px rgba(154, 230, 180, 0.35);
 }
 
+/* =====================================================
+   GLOBAL STYLES
+   ===================================================== */
+
+/* Universal box-sizing for consistent spacing */
 * {
   box-sizing: border-box;
 }
 
+/* Page styling: background image, fonts, base colors */
 body {
   margin: 0;
+  /* Font stack: Jost (custom), then system fonts fallback */
   font-family: "Jost", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
   background-color: var(--bg);
   background-image: url("../images/bg-image.webp");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: fixed; /* Parallax effect */
   background-position: center;
   color: var(--text);
 }
 
+/* =====================================================
+   HEADER SECTION
+   ===================================================== */
+
+/* Top navigation bar: flexbox layout with logo and theme toggle */
 .header {
   display: flex;
   justify-content: space-between;
@@ -115,32 +153,46 @@ body {
   margin: 0 auto;
 }
 
+/* =====================================================
+   MAIN CONTAINER & TYPOGRAPHY
+   ===================================================== */
+
+/* Main content wrapper with max-width and padding */
 .container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 10px 18px 28px;
 }
 
+/* Headings: clear margins and brand colors */
 h1 {
   margin: 0;
   font-size: 1.8rem;
-  color: var(--title);
+  color: var(--title); /* Dark green or mint in dark mode */
 }
+
 h2 {
   margin: 0 0 12px;
   font-size: 1.1rem;
 }
+
 h3 {
   margin: 0;
   font-size: 1em;
 }
 
+/* Secondary text: muted color and smaller size */
 .subtext {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
+/* =====================================================
+   PANELS (CONTAINERS)
+   ===================================================== */
+
+/* Panel styling: white/dark background with subtle borders and shadows */
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -149,11 +201,17 @@ h3 {
   margin: 14px 0;
 }
 
+/* =====================================================
+   FORM STYLES
+   ===================================================== */
+
+/* Form layout: grid with consistent gap spacing */
 .form {
   display: grid;
   gap: 12px;
 }
 
+/* Form labels: muted color and smaller text */
 .field label {
   display: block;
   font-size: 0.9rem;
@@ -161,6 +219,7 @@ h3 {
   margin-bottom: 6px;
 }
 
+/* Form inputs: transparent background, border on focus */
 .field input {
   width: 100%;
   padding: 10px 12px;
@@ -170,14 +229,16 @@ h3 {
   outline: none;
 }
 
+/* Form input focus state: green border and glow effect */
 .field input:focus,
 .field input:focus-visible {
-  background-color: transparent; /* or var(--panel) */
-  outline: none; /* removes browser purple outline */
+  background-color: transparent;
+  outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(25, 71, 57, 0.25); /* soft green glow */
+  box-shadow: 0 0 0 3px rgba(25, 71, 57, 0.25); /* Soft green glow */
 }
-/* Remove Chrome autofill background */
+
+/* Remove Chrome autofill styling to match design */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -186,6 +247,7 @@ input:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+/* Form actions layout: flexbox with wrapping */
 .actions {
   display: flex;
   align-items: center;
@@ -194,6 +256,11 @@ input:-webkit-autofill:focus {
   flex-wrap: wrap;
 }
 
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+/* Base button styles: rounded, with smooth transitions */
 .btn {
   border: none;
   border-radius: 6px;
@@ -202,23 +269,28 @@ input:-webkit-autofill:focus {
     sans-serif;
   font-weight: 600;
   cursor: pointer;
+  /* Smooth animation on hover and click */
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
 }
 
+/* Button active state: scale down slightly on click */
 .btn:active {
   transform: scale(0.98);
 }
 
+/* Primary button: dark green background with white text */
 .btn-primary {
   background-color: var(--primary-btn);
-  color: white; /* ensures contrast in dark mode */
+  color: white;
 }
 
+/* Primary button hover: darker background and shadow */
 .btn-primary:hover {
   filter: brightness(0.92);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.35);
 }
 
+/* Ghost button: transparent with border, circular toggle */
 .btn-ghost {
   background-color: rgba(27, 27, 27, 0.15);
   border: 1px solid var(--border);
@@ -227,23 +299,41 @@ input:-webkit-autofill:focus {
   width: 50px;
   color: var(--text);
 }
+
 .btn-ghost:hover {
   background-color: rgba(27, 27, 27, 0.25);
 }
-.error {
-  color: var(--bad);
-  margin: 0;
-}
 
-.hidden {
-  display: none;
-}
-
+/* Disabled button state: reduced opacity and no cursor */
 .btn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
 
+/* =====================================================
+   ERROR MESSAGE
+   ===================================================== */
+
+/* Error text: red color for validation messages */
+.error {
+  color: var(--bad);
+  margin: 0;
+}
+
+/* =====================================================
+   UTILITIES
+   ===================================================== */
+
+/* Hide elements from display */
+.hidden {
+  display: none;
+}
+
+/* =====================================================
+   METRIC CARDS
+   ===================================================== */
+
+/* Card base styles: panel with hover effect and top status bar */
 .card {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -256,7 +346,7 @@ input:-webkit-autofill:focus {
   overflow: hidden;
 }
 
-/* Top status bar */
+/* Top status bar: colored line indicating health status */
 .card::before {
   content: "";
   position: absolute;
@@ -267,7 +357,7 @@ input:-webkit-autofill:focus {
   border-radius: 16px 16px 0 0;
 }
 
-/* Status colours */
+/* Status bar colors based on health level */
 .status-ok::before {
   background: linear-gradient(90deg, var(--ok), rgba(22, 163, 74, 0.4));
 }
@@ -280,11 +370,13 @@ input:-webkit-autofill:focus {
   background: linear-gradient(90deg, var(--bad), rgba(220, 38, 38, 0.4));
 }
 
+/* Card hover effect: lift up and enhance shadow */
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.09);
 }
 
+/* Card header: heading and badge side-by-side */
 .card-top {
   display: flex;
   align-items: center;
@@ -293,22 +385,18 @@ input:-webkit-autofill:focus {
   margin-bottom: 10px;
 }
 
+/* Metric number: large, bold text for main value */
 .metric {
   font-size: 1.2rem;
   font-weight: 800;
   margin: 6px 0 4px;
 }
 
-.badge-ok {
-  border-color: rgba(22, 163, 74, 0.35);
-}
-.badge-warn {
-  border-color: rgba(245, 158, 11, 0.35);
-}
-.badge-bad {
-  border-color: rgba(220, 38, 38, 0.35);
-}
+/* =====================================================
+   BADGES (STATUS INDICATORS)
+   ===================================================== */
 
+/* Badge container: small circular element with icon */
 .badge {
   width: 34px;
   height: 34px;
@@ -318,22 +406,42 @@ input:-webkit-autofill:focus {
   font-size: 0.85rem;
 }
 
+/* Icon size inside badge */
 .badge i {
   font-size: 1.05rem;
 }
 
-/* Icon colours */
+/* Badge colors matching status levels */
+.badge-ok {
+  border-color: rgba(22, 163, 74, 0.35);
+}
+
+.badge-warn {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.badge-bad {
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
+/* Icon colors inside badges (emoji faces) */
 .badge-face-ok i {
   color: var(--ok);
 }
+
 .badge-face-warn i {
   color: var(--warn);
 }
+
 .badge-face-bad i {
   color: var(--bad);
 }
 
-/* Hide screenreader-only text but keep accessibility */
+/* =====================================================
+   ACCESSIBILITY: SCREEN READER TEXT
+   ===================================================== */
+
+/* Hide visually but keep accessible for screen readers */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -346,6 +454,11 @@ input:-webkit-autofill:focus {
   border: 0;
 }
 
+/* =====================================================
+   INSIGHTS LIST
+   ===================================================== */
+
+/* Insights list: no bullets, custom dash styling */
 .insights {
   margin: 0;
   color: var(--text);
@@ -353,45 +466,53 @@ input:-webkit-autofill:focus {
   padding-left: 0;
 }
 
+/* Each insight item: with custom dash prefix */
 .insights li {
   position: relative;
-  padding-left: 16px; /* space for dash */
+  padding-left: 16px; /* Space for dash */
   margin-bottom: 6px;
 }
 
+/* Custom dash prefix for insight items */
 .insights li::before {
   content: "-";
   position: absolute;
   left: 0;
-  color: var(--muted); /* subtle */
+  color: var(--muted);
   font-weight: 600;
 }
 
+/* =====================================================
+   LAYOUT & GRID SYSTEM
+   ===================================================== */
+
+/* Main layout: two-column grid (form on left, cards on right) */
 .layout {
   display: grid;
-  grid-template-columns: 1fr 0.9fr;
+  grid-template-columns: 1fr 0.9fr; /* Right column slightly narrower */
   gap: 14px;
   align-items: stretch;
 }
 
+/* Cards column: three equal-height cards stacked vertically */
 .cards-col {
   display: grid;
-  grid-template-rows: repeat(3, 1fr); /* equal height cards */
+  grid-template-rows: repeat(3, 1fr); /* Equal height cards */
   gap: 14px;
   height: 100%;
 }
 
-/* Remove extra margins inside the grid columns */
+/* Remove margins from panels inside layout (grid handles spacing) */
 .layout .panel {
   margin: 0;
 }
 
-/* =========================
-   Responsive (Tablet + Phone)
-   ========================= */
+/* =====================================================
+   RESPONSIVE: TABLET (≤ 900px)
+   ===================================================== */
 
-/* Tablet (<= 900px): stack layout, keep nice spacing */
 @media (max-width: 900px) {
+  /* Stack header vertically */
   .header {
     flex-direction: column;
     align-items: flex-start;
@@ -403,23 +524,30 @@ input:-webkit-autofill:focus {
     padding: 10px 16px 22px;
   }
 
+  /* Stack form and cards vertically */
   .layout {
-    grid-template-columns: 1fr; /* stack */
+    grid-template-columns: 1fr;
     gap: 14px;
   }
 
+  /* Cards auto-size instead of forced equal heights */
   .cards-col {
-    grid-template-rows: auto; /* stop forcing equal heights */
+    grid-template-rows: auto;
     height: auto;
   }
 
+  /* Align toggle button to right */
   .btn-ghost {
-    align-self: flex-end; /* toggle sits nicely */
+    align-self: flex-end;
   }
 }
 
-/* Phone (<= 600px): tighter spacing + smaller type */
+/* =====================================================
+   RESPONSIVE: PHONE (≤ 600px)
+   ===================================================== */
+
 @media (max-width: 600px) {
+  /* Reduce heading sizes */
   h1 {
     font-size: 1.5rem;
   }
@@ -432,6 +560,7 @@ input:-webkit-autofill:focus {
     font-size: 0.9rem;
   }
 
+  /* Tighter padding on panels and cards */
   .panel {
     padding: 14px;
   }
@@ -440,27 +569,35 @@ input:-webkit-autofill:focus {
     padding: 14px;
   }
 
+  /* Reduce metric text size */
   .metric {
     font-size: 1.1rem;
   }
 
+  /* Stack form actions vertically */
   .actions {
     flex-direction: column;
     align-items: stretch;
   }
 
+  /* Full-width primary button on mobile */
   .btn-primary {
     width: 100%;
   }
 
+  /* Slightly smaller toggle button */
   .btn-ghost {
     width: 46px;
     height: 46px;
   }
 }
 
-/* Small phones (<= 380px): extra-tight */
+/* =====================================================
+   RESPONSIVE: SMALL PHONE (≤ 380px)
+   ===================================================== */
+
 @media (max-width: 380px) {
+  /* Extra-tight spacing on very small screens */
   .container {
     padding: 10px 12px 18px;
   }
