@@ -195,26 +195,9 @@ h3 {
   display: none;
 }
 
-.loading {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--muted);
-}
-
-.spinner {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  border-top: 3px solid var(--primary);
-  animation: spin 0.9s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .grid {

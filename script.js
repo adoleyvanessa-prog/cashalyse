@@ -233,10 +233,12 @@ function updateDashboard(data) {
 }
 
 // ---------- Form Submit ----------
-form.addEventListener("submit", (e) => { // on submit
+form.addEventListener("submit", (e) => {
+  // on submit
   e.preventDefault();
 
-  const data = { // gather inputs
+  const data = {
+    // gather inputs
     cash: toNumber(document.getElementById("cash").value),
     income: toNumber(document.getElementById("income").value),
     expenses: toNumber(document.getElementById("expenses").value),
@@ -253,7 +255,7 @@ form.addEventListener("submit", (e) => { // on submit
   errorMsg.classList.add("hidden"); // clear errors
 
   // Button loading state
-  updateBtn.textContent = "Updating…"; 
+  updateBtn.textContent = "Updating…";
   updateBtn.disabled = true;
 
   // Simulate processing (UX polish)
