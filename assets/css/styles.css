@@ -370,10 +370,90 @@ input:-webkit-autofill:focus {
   margin: 0;
 }
 
-/* Responsive: stack into one column on mobile/tablet */
+/* =========================
+   Responsive (Tablet + Phone)
+   ========================= */
 
+/* Tablet (<= 900px): stack layout, keep nice spacing */
 @media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 16px 8px;
+  }
+
+  .container {
+    padding: 10px 16px 22px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr; /* stack */
+    gap: 14px;
+  }
+
+  .cards-col {
+    grid-template-rows: auto; /* stop forcing equal heights */
+    height: auto;
+  }
+
+  .btn-ghost {
+    align-self: flex-end; /* toggle sits nicely */
+  }
+}
+
+/* Phone (<= 600px): tighter spacing + smaller type */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1rem;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  .metric {
+    font-size: 1.1rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .btn-ghost {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* Small phones (<= 380px): extra-tight */
+@media (max-width: 380px) {
+  .container {
+    padding: 10px 12px 18px;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+
+  .field input {
+    padding: 9px 10px;
   }
 }
